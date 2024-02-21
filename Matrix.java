@@ -1,5 +1,5 @@
-import java.util.*;
-public class Main {
+import java.util.Scanner;
+public class Matrix {
     public static void main (String [] args){
 
         Scanner user_input = new Scanner (System.in);
@@ -72,11 +72,12 @@ public class Main {
                     matrices[i] = matrix;
                     System.out.println();
 
+                    // compare the number of columns of the previous matrix with the number of rows of the current matrix
                     if (i > 0 && matrices[i - 1][0].length != matrices[i].length) {
                         System.out.println("Entered matrices are not conformable for multiplication. Please try again!");
                         return;
                     }
-                }catch (Exception e){
+                }catch (Exception e){ //This is the exception handling for the input of the matrix.
                     System.out.println ("Invalid Input! Please enter a number: ");
                     user_input.next();
                     i--;
@@ -103,8 +104,7 @@ public class Main {
                 System.out.print("Select the corresponding number of the operation to be used:");
                 char operation = user_input.next().charAt(0);
 
-
-                int[][] result = null;
+                int[][] result;
                 if (operation == '1') {
                     try{
                         int[][] sum = add(matrices);

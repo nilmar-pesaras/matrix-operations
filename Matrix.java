@@ -5,7 +5,7 @@ MACHINE PROBLEM 1 - INFIX TO POSTFIX CONVERSION AND STACK OPERATIONS
 
 This program deals with Matrices using multidimensional arrays.
 This program applies the Matrix theory in its basic operations. The operations also uses concepts of multidimensional array.
- */
+*/
 
 import java.util.Scanner;
 public class Matrix {
@@ -34,16 +34,18 @@ public class Matrix {
             System.out.println("Input invalid. Please try again!");
         } user_input.close();
     }
+    public static void mt_question(){
 
+    }
     //Main flow of the program
     public static void mt_operation() {
         try{
 
             Scanner user_input = new Scanner(System.in);
-            //System.out.print("Enter the number of matrices to be computed: ");
+            System.out.print("Enter the number of matrices to be computed: ");
 
-            //int matrixNum = user_input.nextInt();
-            int matrixNum = 2;
+            int matrixNum = user_input.nextInt(); //Matrix input from user
+            //int matrixNum = 2;
             int[][][] matrices = new int[matrixNum][][];
 
             for (int i = 0; i < matrixNum; i++) {
@@ -51,6 +53,7 @@ public class Matrix {
                     //input matrix dimensions
                     System.out.println();
                     System.out.println("Enter Matrix " + (i + 1));
+
                     System.out.print("Number of rows: ");
                     int rows_num = user_input.nextInt();
 
@@ -79,13 +82,12 @@ public class Matrix {
                         }
                     }
                     matrices[i] = matrix;
-                    System.out.println();
-
+                    //System.out.println();
                     // compare the number of columns of the previous matrix with the number of rows of the current matrix
-                    if (i > 0 && matrices[i - 1][0].length != matrices[i].length) {
-                        System.out.println("Entered matrices are not conformable for multiplication. Please try again!");
-                        return;
-                    }
+                    //if (i > 0 && matrices[i - 1][0].length != matrices[i].length) {
+                    //    System.out.println("Entered matrices are not conformable for addition and multiplication. Please try again!");
+                    //    return;
+                    //}
                 }catch (Exception e){ //This is the exception handling for the input of the matrix.
                     System.out.println ("Invalid Input! Please enter a number: ");
                     user_input.next();
@@ -105,21 +107,37 @@ public class Matrix {
             //matrices that they have entered.
             boolean operation_loop = true;
             while (operation_loop) {
+                System.out.println();
                 System.out.println("Choose an operation to be executed: ");
                 System.out.println("1. Addition");
                 System.out.println("2. Multiplication");
                 System.out.println("3. Constant");
                 System.out.println("4. Diagonalizing");
+                System.out.println();
                 System.out.print("Select the corresponding number of the operation to be used:");
                 char operation = user_input.next().charAt(0);
 
                 int[][] result;
                 if (operation == '1') {
                     try{
+                        //In this portion, the program will print out the elements of the entered matrices.
+                        //check if user_input matrix is less than or equal to number of matrices
+
+                        //display user_input matrices
+                        //for (int i=0; i < matrixNum; i++) {
+                        //    char userLetter = 0;
+                        //    userLetter = 'A';
+                        //    System.out.println("The Elements of Matrix " + (char)(userLetter+i)+ " are:");
+                        //    outputMatrix(matrices [i]);
+                        //}
+
                         int[][] sum = add(matrices);
                         System.out.println("The matrices' sum is: ");
                         System.out.print("A + B = ");
                         outputMatrix(sum);
+
+                        //user previous matrix
+                        boolean usePrevMatrix = true;
 
                         boolean addAnotherMatrix = true;
                         int[][] newSum = sum;
@@ -149,6 +167,13 @@ public class Matrix {
                     break;
                 } else if (operation == '2') {
                     try {
+                        for (int i=0; i < matrixNum; i++) {
+                            char userLetter = 0;
+                            userLetter = 'A';
+                            System.out.println("The Elements of Matrix " + (char)(userLetter+i)+ " are:");
+                            outputMatrix(matrices [i]);
+                        }
+
                         int[][] product = multiply(matrices);
                         System.out.println("The matrices' product is: ");
                         outputMatrix(product);
@@ -292,7 +317,7 @@ public class Matrix {
 
                         conformable = true;
                     } else {
-                        System.out.println("The given matrices are not conformable for addition. Please try again!");
+                        System.out.println("The given matrices are not conformable from your previous matrix for addition. Please try again!");
                         conformable = false;
                     }
                 }
@@ -349,7 +374,7 @@ public class Matrix {
                             product = newProduct;
                             conformable = true;
                         } else {
-                            System.out.println("The given matrices are not conformable for multiplication. Please try again!");
+                            System.out.println("The given matrices are not conformable from your previous matrix for multiplication. Please try again!");
                         }
                     } else {
                         System.out.println("The given matrices are not conformable for multiplication. Please try again!");
@@ -626,7 +651,6 @@ public class Matrix {
         }
         return product;
     }
-
 
     // Method outputMatrix() is responsible for displaying the elements of a given matrix.
     public static void outputMatrix(int[][] matrix) {
